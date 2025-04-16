@@ -3,8 +3,8 @@ const path = require("path");
 const express = require("express");
 const session = require("express-session");
 const passport = require("passport");
-const LocalStrategy = require("passport-local").Strategy;
 const bcrypt = require("bcryptjs");
+const LocalStrategy = require("passport-local").Strategy;
 const { PrismaSessionStore } = require("@quixo3/prisma-session-store");
 const { PrismaClient } = require("./generated/prisma");
 
@@ -37,24 +37,30 @@ app.use(express.static(path.join(__dirname, "static"))); // Static Files
 const prisma = new PrismaClient();
 
 passport.use(
-  new LocalStrategy(async (username, password, done) => {
-    try {
-      const user = await prisma.user.findFirst({
-        where: {
-          email: username,
-        },
-      });
+  new LocalStrategy(
+    { usernameField: "email" },
+    async (email, password, done) => {
+      try {
+        const user = await prisma.user.findUnique({
+          where: {
+            email: email,
+          },
+        });
 
-      if (!user) return done(null, false, { message: "Incorrect username" });
+        if (!user) {
+          return done(null, false, { message: "Incorrect username" });
+        }
 
-      const match = await bcrypt.compare(password, user.password);
-      if (!match) return done(null, false, { message: "Incorrect password" });
-
-      return done(null, user);
-    } catch (error) {
-      return done(error);
-    }
-  }),
+        const match = await bcrypt.compare(password, user.password);
+        if (!match) {
+          return done(null, false, { message: "Incorrect password" });
+        }
+        return done(null, user);
+      } catch (error) {
+        return done(error);
+      }
+    },
+  ),
 );
 
 passport.serializeUser((user, done) => {
@@ -63,7 +69,7 @@ passport.serializeUser((user, done) => {
 
 passport.deserializeUser(async (id, done) => {
   try {
-    const user = await prisma.user.findFirst({
+    const user = await prisma.user.findUnique({
       where: {
         id: id,
       },
