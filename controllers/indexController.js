@@ -2,10 +2,18 @@ const prisma = require("../utils/prisma.js");
 const passport = require("passport");
 const bcrypt = require("bcryptjs");
 
-exports.getUser = async (req, res) => {
-  res.send("Hello world");
+exports.homePage = async (req, res) => {
+  if (req.user) {
+    return res.render("./template/base", {
+      title: "Dashboard",
+      body: "../fileuploadform",
+      user: req.user,
+    });
+  }
+  return res.redirect("/sign-in");
 };
 
+// Sign up | Sign In | Sign Out
 exports.signUp = async (req, res) => {
   if (req.method === "GET") {
     res.render("./template/base", { title: "Sign Up", body: "../signupform" });
@@ -43,4 +51,13 @@ exports.signIn = async (req, res, next) => {
       failureRedirect: "/sign-in",
     })(req, res, next);
   }
+};
+
+exports.signOut = async (req, res, next) => {
+  req.logout((err) => {
+    if (err) {
+      return next(err);
+    }
+    res.redirect("/");
+  });
 };
