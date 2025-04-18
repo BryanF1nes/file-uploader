@@ -83,8 +83,10 @@ passport.deserializeUser(async (id, done) => {
 
 // Routes
 const indexRouter = require("./routes/indexRouter.js");
+const profileRouter = require("./routes/profileRouter.js");
 
 app.use("/", indexRouter);
+app.use("/profile", profileRouter);
 
 app.listen(process.env.PORT, (req, res) => {
   console.log(`Server listening on PORT: ${process.env.PORT}`);

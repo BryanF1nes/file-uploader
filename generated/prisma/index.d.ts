@@ -2269,6 +2269,7 @@ export namespace Prisma {
     id: number | null
     first_name: string | null
     last_name: string | null
+    username: string | null
     userId: number | null
   }
 
@@ -2276,6 +2277,7 @@ export namespace Prisma {
     id: number | null
     first_name: string | null
     last_name: string | null
+    username: string | null
     userId: number | null
   }
 
@@ -2283,6 +2285,7 @@ export namespace Prisma {
     id: number
     first_name: number
     last_name: number
+    username: number
     userId: number
     _all: number
   }
@@ -2302,6 +2305,7 @@ export namespace Prisma {
     id?: true
     first_name?: true
     last_name?: true
+    username?: true
     userId?: true
   }
 
@@ -2309,6 +2313,7 @@ export namespace Prisma {
     id?: true
     first_name?: true
     last_name?: true
+    username?: true
     userId?: true
   }
 
@@ -2316,6 +2321,7 @@ export namespace Prisma {
     id?: true
     first_name?: true
     last_name?: true
+    username?: true
     userId?: true
     _all?: true
   }
@@ -2410,6 +2416,7 @@ export namespace Prisma {
     id: number
     first_name: string | null
     last_name: string | null
+    username: string | null
     userId: number
     _count: ProfileCountAggregateOutputType | null
     _avg: ProfileAvgAggregateOutputType | null
@@ -2436,6 +2443,7 @@ export namespace Prisma {
     id?: boolean
     first_name?: boolean
     last_name?: boolean
+    username?: boolean
     userId?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     files?: boolean | Profile$filesArgs<ExtArgs>
@@ -2446,6 +2454,7 @@ export namespace Prisma {
     id?: boolean
     first_name?: boolean
     last_name?: boolean
+    username?: boolean
     userId?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["profile"]>
@@ -2454,6 +2463,7 @@ export namespace Prisma {
     id?: boolean
     first_name?: boolean
     last_name?: boolean
+    username?: boolean
     userId?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["profile"]>
@@ -2462,10 +2472,11 @@ export namespace Prisma {
     id?: boolean
     first_name?: boolean
     last_name?: boolean
+    username?: boolean
     userId?: boolean
   }
 
-  export type ProfileOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "first_name" | "last_name" | "userId", ExtArgs["result"]["profile"]>
+  export type ProfileOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "first_name" | "last_name" | "username" | "userId", ExtArgs["result"]["profile"]>
   export type ProfileInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
     files?: boolean | Profile$filesArgs<ExtArgs>
@@ -2488,6 +2499,7 @@ export namespace Prisma {
       id: number
       first_name: string | null
       last_name: string | null
+      username: string | null
       userId: number
     }, ExtArgs["result"]["profile"]>
     composites: {}
@@ -2917,6 +2929,7 @@ export namespace Prisma {
     readonly id: FieldRef<"Profile", 'Int'>
     readonly first_name: FieldRef<"Profile", 'String'>
     readonly last_name: FieldRef<"Profile", 'String'>
+    readonly username: FieldRef<"Profile", 'String'>
     readonly userId: FieldRef<"Profile", 'Int'>
   }
     
@@ -5435,6 +5448,7 @@ export namespace Prisma {
     id: 'id',
     first_name: 'first_name',
     last_name: 'last_name',
+    username: 'username',
     userId: 'userId'
   };
 
@@ -5602,6 +5616,7 @@ export namespace Prisma {
     id?: IntFilter<"Profile"> | number
     first_name?: StringNullableFilter<"Profile"> | string | null
     last_name?: StringNullableFilter<"Profile"> | string | null
+    username?: StringNullableFilter<"Profile"> | string | null
     userId?: IntFilter<"Profile"> | number
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     files?: FileListRelationFilter
@@ -5611,6 +5626,7 @@ export namespace Prisma {
     id?: SortOrder
     first_name?: SortOrderInput | SortOrder
     last_name?: SortOrderInput | SortOrder
+    username?: SortOrderInput | SortOrder
     userId?: SortOrder
     user?: UserOrderByWithRelationInput
     files?: FileOrderByRelationAggregateInput
@@ -5624,6 +5640,7 @@ export namespace Prisma {
     NOT?: ProfileWhereInput | ProfileWhereInput[]
     first_name?: StringNullableFilter<"Profile"> | string | null
     last_name?: StringNullableFilter<"Profile"> | string | null
+    username?: StringNullableFilter<"Profile"> | string | null
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     files?: FileListRelationFilter
   }, "id" | "userId">
@@ -5632,6 +5649,7 @@ export namespace Prisma {
     id?: SortOrder
     first_name?: SortOrderInput | SortOrder
     last_name?: SortOrderInput | SortOrder
+    username?: SortOrderInput | SortOrder
     userId?: SortOrder
     _count?: ProfileCountOrderByAggregateInput
     _avg?: ProfileAvgOrderByAggregateInput
@@ -5647,6 +5665,7 @@ export namespace Prisma {
     id?: IntWithAggregatesFilter<"Profile"> | number
     first_name?: StringNullableWithAggregatesFilter<"Profile"> | string | null
     last_name?: StringNullableWithAggregatesFilter<"Profile"> | string | null
+    username?: StringNullableWithAggregatesFilter<"Profile"> | string | null
     userId?: IntWithAggregatesFilter<"Profile"> | number
   }
 
@@ -5790,6 +5809,7 @@ export namespace Prisma {
   export type ProfileCreateInput = {
     first_name?: string | null
     last_name?: string | null
+    username?: string | null
     user: UserCreateNestedOneWithoutProfileInput
     files?: FileCreateNestedManyWithoutProfileInput
   }
@@ -5798,6 +5818,7 @@ export namespace Prisma {
     id?: number
     first_name?: string | null
     last_name?: string | null
+    username?: string | null
     userId: number
     files?: FileUncheckedCreateNestedManyWithoutProfileInput
   }
@@ -5805,6 +5826,7 @@ export namespace Prisma {
   export type ProfileUpdateInput = {
     first_name?: NullableStringFieldUpdateOperationsInput | string | null
     last_name?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: NullableStringFieldUpdateOperationsInput | string | null
     user?: UserUpdateOneRequiredWithoutProfileNestedInput
     files?: FileUpdateManyWithoutProfileNestedInput
   }
@@ -5813,6 +5835,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     first_name?: NullableStringFieldUpdateOperationsInput | string | null
     last_name?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: NullableStringFieldUpdateOperationsInput | string | null
     userId?: IntFieldUpdateOperationsInput | number
     files?: FileUncheckedUpdateManyWithoutProfileNestedInput
   }
@@ -5821,18 +5844,21 @@ export namespace Prisma {
     id?: number
     first_name?: string | null
     last_name?: string | null
+    username?: string | null
     userId: number
   }
 
   export type ProfileUpdateManyMutationInput = {
     first_name?: NullableStringFieldUpdateOperationsInput | string | null
     last_name?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ProfileUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     first_name?: NullableStringFieldUpdateOperationsInput | string | null
     last_name?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: NullableStringFieldUpdateOperationsInput | string | null
     userId?: IntFieldUpdateOperationsInput | number
   }
 
@@ -6053,6 +6079,7 @@ export namespace Prisma {
     id?: SortOrder
     first_name?: SortOrder
     last_name?: SortOrder
+    username?: SortOrder
     userId?: SortOrder
   }
 
@@ -6065,6 +6092,7 @@ export namespace Prisma {
     id?: SortOrder
     first_name?: SortOrder
     last_name?: SortOrder
+    username?: SortOrder
     userId?: SortOrder
   }
 
@@ -6072,6 +6100,7 @@ export namespace Prisma {
     id?: SortOrder
     first_name?: SortOrder
     last_name?: SortOrder
+    username?: SortOrder
     userId?: SortOrder
   }
 
@@ -6438,6 +6467,7 @@ export namespace Prisma {
   export type ProfileCreateWithoutUserInput = {
     first_name?: string | null
     last_name?: string | null
+    username?: string | null
     files?: FileCreateNestedManyWithoutProfileInput
   }
 
@@ -6445,6 +6475,7 @@ export namespace Prisma {
     id?: number
     first_name?: string | null
     last_name?: string | null
+    username?: string | null
     files?: FileUncheckedCreateNestedManyWithoutProfileInput
   }
 
@@ -6467,6 +6498,7 @@ export namespace Prisma {
   export type ProfileUpdateWithoutUserInput = {
     first_name?: NullableStringFieldUpdateOperationsInput | string | null
     last_name?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: NullableStringFieldUpdateOperationsInput | string | null
     files?: FileUpdateManyWithoutProfileNestedInput
   }
 
@@ -6474,6 +6506,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     first_name?: NullableStringFieldUpdateOperationsInput | string | null
     last_name?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: NullableStringFieldUpdateOperationsInput | string | null
     files?: FileUncheckedUpdateManyWithoutProfileNestedInput
   }
 
@@ -6562,6 +6595,7 @@ export namespace Prisma {
   export type ProfileCreateWithoutFilesInput = {
     first_name?: string | null
     last_name?: string | null
+    username?: string | null
     user: UserCreateNestedOneWithoutProfileInput
   }
 
@@ -6569,6 +6603,7 @@ export namespace Prisma {
     id?: number
     first_name?: string | null
     last_name?: string | null
+    username?: string | null
     userId: number
   }
 
@@ -6591,6 +6626,7 @@ export namespace Prisma {
   export type ProfileUpdateWithoutFilesInput = {
     first_name?: NullableStringFieldUpdateOperationsInput | string | null
     last_name?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: NullableStringFieldUpdateOperationsInput | string | null
     user?: UserUpdateOneRequiredWithoutProfileNestedInput
   }
 
@@ -6598,6 +6634,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     first_name?: NullableStringFieldUpdateOperationsInput | string | null
     last_name?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: NullableStringFieldUpdateOperationsInput | string | null
     userId?: IntFieldUpdateOperationsInput | number
   }
 

@@ -61,8 +61,3 @@ exports.signOut = async (req, res, next) => {
     res.redirect("/");
   });
 };
-
-exports.getProfile = async (req, res, next) => {
-  const user = req.user;
-  return res.render("./template/base", { title: "Profile", body: "../profile", user: user })
-}
