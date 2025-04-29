@@ -40,10 +40,11 @@ app.use(passport.session());
 passport.use(
   new LocalStrategy(async (username, password, done) => {
         try {
-            const users = await prisma.user.findMany({
-                where: username
+            const user = await prisma.user.findFirstOrThrow({
+              where: {
+                username: username
+              }
             })
-            const user = users[0];
             
             if (!user) return done(null, false, { message: "Incorrect username" });
 
@@ -63,10 +64,11 @@ passport.serializeUser((user, done) => {
 
 passport.deserializeUser(async (id, done) => {
   try {
-    const users = await prisma.user.findFirstOrThrow({
-        where: id
+    const user = await prisma.user.findFirstOrThrow({
+        where: {
+          id: id
+        }
     })
-    const user = users[0];
 
     done(null, user);
   } catch(err) {

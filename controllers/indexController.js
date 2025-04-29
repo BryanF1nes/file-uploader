@@ -2,7 +2,18 @@ const passport = require("passport");
 const bcrypt = require("bcryptjs");
 const prisma = require("../utils/prisma.js");
 
+exports.home = async (req, res, next) => {
+    if (!req.user) {
+        return res.redirect("/sign-up")
+    }
+    return res.render("template", { body: "dashboard", user: req.user });
+}
+
 exports.signup = async (req, res, next) => {
+    if (req.method === "GET") {
+        return res.render("template", { body: "signup" }) 
+    }
+
     try {
         const hashedPassword = await bcrypt.hash(req.body.password, 10);
         await prisma.user.create({
@@ -21,6 +32,9 @@ exports.signup = async (req, res, next) => {
 };
 
 exports.login = (req, res, next) => {
+    if (req.method === "GET") {
+        return res.render("template", { body: "login" })
+    }
     return passport.authenticate("local", {
             successRedirect: "/",
             failureRedirect: "/"
