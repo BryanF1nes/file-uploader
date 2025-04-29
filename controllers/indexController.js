@@ -6,12 +6,12 @@ exports.home = async (req, res, next) => {
     if (!req.user) {
         return res.redirect("/sign-up")
     }
-    return res.render("template", { body: "dashboard", user: req.user });
+    return res.render("template", { body: "dashboard", title: "Home", user: req.user });
 }
 
 exports.signup = async (req, res, next) => {
     if (req.method === "GET") {
-        return res.render("template", { body: "signup" }) 
+        return res.render("template", { title: "Signup", body: "signup" }) 
     }
 
     try {
@@ -33,7 +33,7 @@ exports.signup = async (req, res, next) => {
 
 exports.login = (req, res, next) => {
     if (req.method === "GET") {
-        return res.render("template", { body: "login" })
+        return res.render("template", { title: "Login", body: "login" })
     }
     return passport.authenticate("local", {
             successRedirect: "/",

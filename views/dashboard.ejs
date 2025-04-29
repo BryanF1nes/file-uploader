@@ -1,2 +1,7 @@
 <h1>Welcome <%= user.username %></h1>
 <a href="/logout">Log out</a>
+<form action="/upload/" method="POST" enctype="multipart/form-data">
+    <label for="file">Upload File</label>
+    <input type="file" name="file" id="file">
+    <button type="submit">Upload</button>
+</form>
