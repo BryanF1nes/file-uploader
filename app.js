@@ -1,14 +1,20 @@
 require("dotenv").config();
 const express = require("express");
 const expressSession = require("express-session");
+const path = require("node:path");
 const passport = require("passport");
+const bcrypt = require("bcryptjs");
 const LocalStrategy = require("passport-local").Strategy;
 const { PrismaSessionStore } = require('@quixo3/prisma-session-store');
 const { PrismaClient } = require('./generated/prisma');
+const prisma = require("./utils/prisma.js");
 const app = express();
 
 // Routers
 const indexRouter = require("./routes/indexRouter.js");
+
+app.set("views", path.join(__dirname, "views"));
+app.set("view engine", "ejs");
 
 app.use(express.urlencoded({ extended: false }));
 app.use(
@@ -33,21 +39,22 @@ app.use(passport.session());
 
 passport.use(
   new LocalStrategy(async (username, password, done) => {
-    try {
-      const { rows } = await pool.query("SELECT * FROM users WHERE username = $1", [username]);
-      const user = rows[0];
+        try {
+            const users = await prisma.user.findMany({
+                where: username
+            })
+            const user = users[0];
+            
+            if (!user) return done(null, false, { message: "Incorrect username" });
 
-      if (!user) {
-        return done(null, false, { message: "Incorrect username" });
-      }
-      if (user.password !== password) {
-        return done(null, false, { message: "Incorrect password" });
-      }
-      return done(null, user);
-    } catch(err) {
-      return done(err);
-    }
-  })
+            const match = await bcrypt.compare(password, user.password);
+            if (!match) return done(null, false, { message: "Incorrect password" })
+                
+                return done(null, user);
+        } catch (error) {
+            return done(error);
+        }
+    })
 );
 
 passport.serializeUser((user, done) => {
@@ -56,8 +63,10 @@ passport.serializeUser((user, done) => {
 
 passport.deserializeUser(async (id, done) => {
   try {
-    const { rows } = await pool.query("SELECT * FROM users WHERE id = $1", [id]);
-    const user = rows[0];
+    const users = await prisma.user.findFirstOrThrow({
+        where: id
+    })
+    const user = users[0];
 
     done(null, user);
   } catch(err) {
