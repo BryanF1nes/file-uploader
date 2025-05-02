@@ -1,8 +1,12 @@
 const prisma = require("./prisma.js");
 
 async function main() {
-  const users = await prisma.user.findMany();
-  console.log(users);
+  const folder = await prisma.user.findMany({
+    include: {
+      folders: true,
+    }
+  });
+  console.log(folder);
 }
 
 main()

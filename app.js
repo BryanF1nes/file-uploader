@@ -3,6 +3,7 @@ const express = require("express");
 const expressSession = require("express-session");
 const path = require("node:path");
 const passport = require("passport");
+const assetsPath = path.join(__dirname, "public");
 const bcrypt = require("bcryptjs");
 const LocalStrategy = require("passport-local").Strategy;
 const { PrismaSessionStore } = require('@quixo3/prisma-session-store');
@@ -16,6 +17,7 @@ const fileRouter = require("./routes/fileRouter.js");
 
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
+app.use(express.static(assetsPath));
 
 app.use(express.urlencoded({ extended: false }));
 app.use(
@@ -68,6 +70,9 @@ passport.deserializeUser(async (id, done) => {
     const user = await prisma.user.findFirstOrThrow({
         where: {
           id: id
+        },
+        include: {
+          folders: true,
         }
     })
 
