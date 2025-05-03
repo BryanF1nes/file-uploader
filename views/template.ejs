@@ -6,6 +6,17 @@
     <title><%= title %></title>
 </head>
 <body>
+    <nav>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/sign-up">Sign Up</a></li>
+            <% if (locals.user) { %> 
+                <li><a href="/logout">Logout</a></li>
+            <% } else { %>
+                <li><a href="/login">Login</a></li>
+            <% } %>
+        </ul>
+    </nav>
     <%- include(body) %>
 </body>
 </html>

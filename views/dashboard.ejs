@@ -1,7 +1,6 @@
 <h1>Welcome <%= user.username %></h1>
-<a href="/logout">Log out</a>
 
-<form action="/upload/create/" method="POST">
+<form action="/create" method="POST">
     <label for="name">Name</label>
     <input type="text" name="name" id="name">
     <button type="submit">Create</button>
@@ -18,6 +17,7 @@
 <div>
     <% const folders = user.folders %>
         <% folders.map((folder) => { %>
-            <li><%= folder.name %></li>
+            <% const name = folder.name.toLowerCase(); %>
+            <li><a href="<%= name %>/<%= folder.id %>"><%= folder.name %></a></li>
     <% }) %>
 </div>

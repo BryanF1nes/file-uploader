@@ -47,3 +47,8 @@ exports.logout = (req, res, next) => {
         res.redirect("/");
     });
 };
+
+exports.folderPage = (req, res, next) => {
+    const { folderName, id } = req.params;
+    res.render("template", { body: "folderPage", title: folderName, user: req.user, folderName })
+};

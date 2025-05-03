@@ -14,6 +14,7 @@ const app = express();
 // Routers
 const indexRouter = require("./routes/indexRouter.js");
 const fileRouter = require("./routes/fileRouter.js");
+const uploadRouter = require("./routes/uploadRouter.js");
 
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
@@ -84,7 +85,7 @@ passport.deserializeUser(async (id, done) => {
 
 
 app.use("/", indexRouter);
-app.use("/upload", fileRouter);
+app.use("/upload", uploadRouter);
 
 const SERVER_PORT = process.env.SERVER_PORT
 app.listen(SERVER_PORT, () => {
