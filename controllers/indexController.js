@@ -48,8 +48,20 @@ exports.logout = (req, res, next) => {
     });
 };
 
-exports.folderPage = (req, res, next) => {
-    const { folderName, id } = req.params;
+exports.folderPage = async (req, res, next) => {    
+    try {
+        const { folderName, id } = req.params;
+        const folder = await prisma.folder.findFirst({
+            where: {
+                id: parseInt(id),
+            },
+            include: {
+                files: true
+            }
+        });
 
-    res.render("template", { body: "folderPage", title: folderName, user: req.user, folderName, path: `/upload/${id}` });
+        return res.render("template", { body: "folderPage", title: folderName, user: req.user, folderName, path: `/upload/${id}`, files: folder.files });
+    } catch (error) {
+        console.error(error);
+    }
 };

@@ -7,7 +7,7 @@ indexRouter.get("/", indexController.home);
 indexRouter.get("/sign-up", indexController.signup);
 indexRouter.get("/login", indexController.login);
 indexRouter.get("/logout", indexController.logout);
-indexRouter.get("/:folderName/:id", indexController.folderPage);
+indexRouter.get("/folder/:folderName/:id", indexController.folderPage);
 
 indexRouter.post("/sign-up", indexController.signup);
 indexRouter.post("/login", indexController.login);

@@ -13,11 +13,7 @@
         <% folders.map((folder) => { %>
             <% const name = folder.name.toLowerCase(); %>
             <li id="<%= folder.id %>">
-                <a href="<%= name %>/<%= folder.id %>"><%= folder.name %></a> 
+                <a href="/folder/<%= name %>/<%= folder.id %>"><%= folder.name %></a> 
             </li>
     <% }) %>
 </div>
-
-<div id="modal"></div>
-
-<script src="/js/folder.js"></script>

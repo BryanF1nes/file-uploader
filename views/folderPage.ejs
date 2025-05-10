@@ -1,3 +1,9 @@
 <h1><%= folderName %></h1>
 
 <%- include("upload") %>
+
+<% files.map((file) => { %>
+    <li id="<%= file.id %>">
+        <a href="#"><%= file.name %></a> 
+    </li>
+<% }) %>
