@@ -8,16 +8,16 @@
 
 <br>
 
-<form action="/upload/" method="POST" enctype="multipart/form-data">
-    <label for="file">Upload File</label>
-    <input type="file" name="file" id="file">
-    <button type="submit">Upload</button>
-</form>
-
 <div>
     <% const folders = user.folders %>
         <% folders.map((folder) => { %>
             <% const name = folder.name.toLowerCase(); %>
-            <li><a href="<%= name %>/<%= folder.id %>"><%= folder.name %></a></li>
+            <li id="<%= folder.id %>">
+                <a href="<%= name %>/<%= folder.id %>"><%= folder.name %></a> 
+            </li>
     <% }) %>
 </div>
+
+<div id="modal"></div>
+
+<script src="/js/folder.js"></script>

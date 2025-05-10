@@ -50,5 +50,6 @@ exports.logout = (req, res, next) => {
 
 exports.folderPage = (req, res, next) => {
     const { folderName, id } = req.params;
-    res.render("template", { body: "folderPage", title: folderName, user: req.user, folderName })
+
+    res.render("template", { body: "folderPage", title: folderName, user: req.user, folderName, path: `/upload/${id}` });
 };

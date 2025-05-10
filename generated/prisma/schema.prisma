@@ -31,10 +31,10 @@ model Folder {
 }
 
 model File {
-  id       Int    @id @default(autoincrement())
+  id       Int     @id @default(autoincrement())
   name     String
-  url      String @unique
-  folder   Folder @relation(fields: [folderId], references: [id])
+  url      String?
+  folder   Folder  @relation(fields: [folderId], references: [id])
   folderId Int
 }
 
